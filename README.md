@@ -1,5 +1,16 @@
 # Conference-Info
+
 Info for the PyData Madrid 2016 conference
+
+## Web page
+
+http://pydata.org/madrid2016/
+
+## Twitter
+
+[@PyDataMad](https://twitter.com/PyDataMad)
+
+You can use the [#PyDataMad](https://twitter.com/search/?q=%23PyDataMad&s=hash) hashtag for the event.
 
 ## Venues
 
