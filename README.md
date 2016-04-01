@@ -702,8 +702,12 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
 
 ## Workshops materials (slides, notebooks, data, repos,...)
 
-TBD
+[Click here.](https://github.com/PyDataMadrid2016/Conference-Info/tree/master/workshops_materials)
 
 ## talks materials (slides, notebooks, data, repos,...)
 
-TBD
+[Click here.](https://github.com/PyDataMadrid2016/Conference-Info/tree/master/talks_materials)
+
+## Pictures of the event
+
+[You can upload your pictures here.](https://github.com/PyDataMadrid2016/Conference-Info/tree/master/pictures)
