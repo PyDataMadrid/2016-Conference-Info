@@ -96,7 +96,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
     <tbody>
         
             <tr>
-                <td class="time">9:00</td>
+                <td class="time">9:30</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
                       
@@ -113,7 +113,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">10:45</td>
+                <td class="time">11:15</td>
                 
                     <td class="slot slot-" colspan="0" rowspan="1">
                       
@@ -127,7 +127,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">11:00</td>
+                <td class="time">11:45</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
                       
@@ -144,7 +144,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">12:45</td>
+                <td class="time">13:30</td>
                 
                     <td class="slot slot-" colspan="0" rowspan="1">
                       
@@ -189,7 +189,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">17:00</td>
+                <td class="time">17:15</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
                       
@@ -206,7 +206,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">18:45</td>
+                <td class="time">19:00</td>
                 
                 
                     <td colspan="0"></td>
