@@ -2,7 +2,7 @@
 
 You can get the latest release of the materials here:
 
-https://github.com/FrancescAlted/DataContainers/releases
+https://github.com/FrancescAlted/DataContainersTutorials
 
 Also, make sure that you have the next Python packages installed:
 
