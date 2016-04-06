@@ -96,6 +96,20 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
     <tbody>
         
             <tr>
+                <td class="time">09:00</td>
+                
+                    <td class="slot slot-" colspan="0" rowspan="1">
+                      
+                        
+                            <p>Registration</p>
+                        
+                      
+                    </td>
+                
+                
+            </tr>
+            
+            <tr>
                 <td class="time">9:30</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
