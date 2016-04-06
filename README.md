@@ -56,7 +56,7 @@ Talks will be on Campus Madrid on Saturday 9th April and Sunday 10th April ([Mor
  * [Web](http://www.emtmadrid.es/Home)
  * [Interactive map](http://www.emtmadrid.es/mapaweb/emt.html)
 
-* Metro (subway|undergraound) info:
+* Metro (subway|underground) info:
  * [Web](https://www.metromadrid.es/es/index.html)
  * [Interactive map](https://www.metromadrid.es/en/viaja_en_metro/red_de_metro/planos/index.html)
 
