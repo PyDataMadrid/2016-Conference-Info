@@ -718,6 +718,10 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
 
 [Click here.](https://github.com/PyDataMadrid2016/Conference-Info/tree/master/workshops_materials)
 
+## Important
+
+If you will attend the workshops, please, visit [this link](https://github.com/PyDataMadrid2016/Conference-Info/blob/master/workshops_materials/README.md) and follow the instructions there before friday.
+
 ## talks materials (slides, notebooks, data, repos,...)
 
 [Click here.](https://github.com/PyDataMadrid2016/Conference-Info/tree/master/talks_materials)
