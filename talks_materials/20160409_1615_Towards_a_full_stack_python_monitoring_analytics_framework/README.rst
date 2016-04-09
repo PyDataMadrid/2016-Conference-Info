@@ -16,6 +16,8 @@ About us
 
 .fx: section
 
+`Blue Telecom Consulting (BlueTC®) <http://blue-tc.com>`_ provides innovative solutions and services aimed at evolving and optimising telecom networks to operators, system integrators and network equipment manufacturers.
+
 **BlueTC’s Innovation Team** has been working during past 3 years for **international customers** on projects mainly related with three key fields: **Openstack (NFV/SDN)**, **Data Analytics** and **Real Time Systems Monitoring**. 
 
 We have been identifying lacks in the tools currently used by our customers, and designing specific solutions to encourage telco operators and network equipment vendors towards a monitoring and analytics framework really capable of facing the new challenges.
