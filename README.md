@@ -56,7 +56,7 @@ Talks will be on Campus Madrid on Saturday 9th April and Sunday 10th April ([Mor
  * [Web](http://www.emtmadrid.es/Home)
  * [Interactive map](http://www.emtmadrid.es/mapaweb/emt.html)
 
-* Metro (subway|undergraound) info:
+* Metro (subway|underground) info:
  * [Web](https://www.metromadrid.es/es/index.html)
  * [Interactive map](https://www.metromadrid.es/en/viaja_en_metro/red_de_metro/planos/index.html)
 
@@ -96,7 +96,21 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
     <tbody>
         
             <tr>
-                <td class="time">9:00</td>
+                <td class="time">09:00</td>
+                
+                    <td class="slot slot-" colspan="0" rowspan="1">
+                      
+                        
+                            <p>Registration</p>
+                        
+                      
+                    </td>
+                
+                
+            </tr>
+            
+            <tr>
+                <td class="time">9:30</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
                       
@@ -113,7 +127,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">10:45</td>
+                <td class="time">11:15</td>
                 
                     <td class="slot slot-" colspan="0" rowspan="1">
                       
@@ -127,7 +141,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">11:00</td>
+                <td class="time">11:45</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
                       
@@ -144,7 +158,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">12:45</td>
+                <td class="time">13:30</td>
                 
                     <td class="slot slot-" colspan="0" rowspan="1">
                       
@@ -189,7 +203,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">17:00</td>
+                <td class="time">17:15</td>
                 
                     <td class="slot slot-tutorial" colspan="0" rowspan="1">
                       
@@ -206,7 +220,7 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
             </tr>
         
             <tr>
-                <td class="time">18:45</td>
+                <td class="time">19:00</td>
                 
                 
                     <td colspan="0"></td>
@@ -703,6 +717,10 @@ Madrid is a safe city but as in other places sometimes you can find an issue:
 ## Workshops materials (slides, notebooks, data, repos,...)
 
 [Click here.](https://github.com/PyDataMadrid2016/Conference-Info/tree/master/workshops_materials)
+
+#### Important
+
+If you will attend the workshops, please, visit [this link](https://github.com/PyDataMadrid2016/Conference-Info/blob/master/workshops_materials/README.md) and follow the instructions there before friday.
 
 ## talks materials (slides, notebooks, data, repos,...)
 

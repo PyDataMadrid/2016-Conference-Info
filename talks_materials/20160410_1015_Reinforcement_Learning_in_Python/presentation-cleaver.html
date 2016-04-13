@@ -1,0 +1,914 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Reinforcement Learning in Python</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="reinforcement-learning-in-python">Reinforcement Learning in Python</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="roadmap">Roadmap</h3>
+<ul>
+<li>Concepts</li>
+<li>Using Data</li>
+<li>Python Implementation</li>
+<li>Sample Application</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h1 id="concepts">Concepts</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="reinforcement-learning">Reinforcement Learning</h3>
+<p>Reinforcement learning is a type of machine learning in which software agents are trained to take actions in a given environment to maximize a cumulative reward.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="markov-decision-process-components">Markov Decision Process - Components</h3>
+<p>A Markov Decision process is a mathematical formalism that we will use to implement reinforcement learning. The relevant components of this formalism are
+the <strong>state space</strong>, <strong>action space</strong>, <strong>transition probabilities</strong>, and <strong>rewards</strong>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="state-space">State Space</h3>
+<p>The exhaustive set of possible states that a process can be in. Generally known a priori.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="action-space">Action Space</h3>
+<p>The exhaustive set of possible actions that can be taken (to influence the likelihood of transition between states). Generally known a priori.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="transition-probabilities">Transition Probabilities</h3>
+<p>The probabilities of transitioning between the various states given actions taken (specifically, a tensor, P, such that P_ijk = probabilitiy of going from state i to state k given action j). Generally not known a priori.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="rewards">Rewards</h3>
+<p>The rewards associated with occupying each state. Generally not known a priori.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="markov-decision-process-objectives">Markov Decision Process - Objectives</h3>
+<p>We are interested in understanding these elements in order to develop a <strong>policy</strong>; the set of actions we will take in each state.</p>
+<p>Our goal is to determine a policy which produces the greatest possible cumulative rewards.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h1 id="using-data">Using Data</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="objectives">Objectives</h3>
+<p>Our goal is to learn the transition probabilities and the rewards (and build a policy based on these rewards). We will estimate these values using observed data.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="estimating-rewards">Estimating Rewards</h3>
+<p>R(s) = (total reward we got in state s) / (#times we visited state s)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="estimating-transition-probability">Estimating Transition Probability</h3>
+<p>P(s, a, s&#39;) = (#times we took action a in state s and we went to s&#39;) / (#times we took action a in state s)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="value-iteration">Value Iteration</h3>
+<p>Value Iteration is an algorithm by which we can use the estimated rewards and transition probabilities to determine an optimal policy.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="value-iteration-algorithm">Value Iteration - algorithm</h3>
+<p>1) For each state s, initialize V(s) = 0</p>
+<p>2) Repeat until convergence:</p>
+<p>For each state, update V(s) = R(s) + max_a∈A SUM_s&#39;∈S(P(s, a, s&#39;) * V(s&#39;))</p>
+<p>3) Policy in state s is the a ∈ A which maximizes V(s)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h1 id="python-implementation">Python Implementation</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="following-along">Following Along</h3>
+<p>If you want to look at the code examples on your own, you can find all code for this presentation at <a href="https://github.com/NathanEpstein/pydata-reinforce">https://github.com/NathanEpstein/pydata-reinforce</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="reward-parser">Reward Parser</h3>
+<pre><code class="lang-python">
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RewardParser</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, observations, dimensions)</span>:</span>
+    self.observations = observations
+    self.state_count = dimensions[<span class="hljs-string">'state_count'</span>]
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rewards</span><span class="hljs-params">(self)</span>:</span>
+    total_state_rewards = np.zeros(self.state_count)
+    total_state_visits = np.zeros(self.state_count)
+
+    <span class="hljs-keyword">for</span> observation <span class="hljs-keyword">in</span> self.observations:
+      visits = float(len(observation[<span class="hljs-string">'state_transitions'</span>]))
+      reward_per_visit = observation[<span class="hljs-string">'reward'</span>] / visits
+
+      <span class="hljs-keyword">for</span> state_transition <span class="hljs-keyword">in</span> observation[<span class="hljs-string">'state_transitions'</span>]:
+        state = state_transition[<span class="hljs-string">'state'</span>]
+        total_state_rewards[state] += reward_per_visit
+        total_state_visits[state] += <span class="hljs-number">1</span>
+
+    average_state_rewards = total_state_rewards / total_state_visits
+    average_state_rewards = np.nan_to_num(average_state_rewards)
+
+    <span class="hljs-keyword">return</span> average_state_rewards</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="transition-parser-part-1-">Transition Parser (part 1)</h3>
+<pre><code class="lang-python">
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TransitionParser</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, observations, dimensions)</span>:</span>
+    self.observations = observations
+    self.state_count = dimensions[<span class="hljs-string">'state_count'</span>]
+    self.action_count = dimensions[<span class="hljs-string">'action_count'</span>]
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">transition_probabilities</span><span class="hljs-params">(self)</span>:</span>
+    transition_count = self._count_transitions()
+    <span class="hljs-keyword">return</span> self._parse_probabilities(transition_count)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="transition-parser-part-2-">Transition Parser (part 2)</h3>
+<pre><code class="lang-python">
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_count_transitions</span><span class="hljs-params">(self)</span>:</span>
+    transition_count = np.zeros((self.state_count, self.action_count, self.state_count))
+
+    <span class="hljs-keyword">for</span> observation <span class="hljs-keyword">in</span> self.observations:
+      <span class="hljs-keyword">for</span> state_transition <span class="hljs-keyword">in</span> observation[<span class="hljs-string">'state_transitions'</span>]:
+        state = state_transition[<span class="hljs-string">'state'</span>]
+        action = state_transition[<span class="hljs-string">'action'</span>]
+        state_ = state_transition[<span class="hljs-string">'state_'</span>]
+
+        transition_count[state][action][state_] += <span class="hljs-number">1</span>
+
+    <span class="hljs-keyword">return</span> transition_count
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_parse_probabilities</span><span class="hljs-params">(self, transition_count)</span>:</span>
+    P = np.zeros((self.state_count, self.action_count, self.state_count))
+
+    <span class="hljs-keyword">for</span> state <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, self.state_count):
+      <span class="hljs-keyword">for</span> action <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, self.action_count):
+
+        total_transitions = float(sum(transition_count[state][action]))
+
+        <span class="hljs-keyword">if</span> (total_transitions &gt; <span class="hljs-number">0</span>):
+          P[state][action] = transition_count[state][action] / total_transitions
+        <span class="hljs-keyword">else</span>:
+          P[state][action] = <span class="hljs-number">1.0</span> / self.state_count
+
+    <span class="hljs-keyword">return</span> P</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="policy-parser">Policy Parser</h3>
+<pre><code class="lang-python">
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PolicyParser</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, dimensions)</span>:</span>
+    self.state_count = dimensions[<span class="hljs-string">'state_count'</span>]
+    self.action_count = dimensions[<span class="hljs-string">'action_count'</span>]
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">policy</span><span class="hljs-params">(self, P, rewards)</span>:</span>
+    best_policy = np.zeros(self.state_count)
+    state_values = np.zeros(self.state_count)
+
+    GAMMA, ITERATIONS = <span class="hljs-number">0.9</span>, <span class="hljs-number">50</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(ITERATIONS):
+      <span class="hljs-keyword">for</span> state <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, self.state_count):
+        state_value = -float(<span class="hljs-string">'Inf'</span>)
+        <span class="hljs-keyword">for</span> action <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, self.action_count):
+          action_value = <span class="hljs-number">0</span>
+          <span class="hljs-keyword">for</span> state_ <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, self.state_count):
+            action_value += (P[state][action][state_] * state_values[state_] * GAMMA)
+          <span class="hljs-keyword">if</span> (action_value &gt;= state_value):
+            state_value = action_value
+            best_policy[state] = action
+        state_values[state] = rewards[state] + state_value
+    <span class="hljs-keyword">return</span> best_policy</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="putting-it-together-markov-agent-">Putting It Together (Markov Agent)</h3>
+<pre><code class="lang-python">
+<span class="hljs-keyword">from</span> rewards <span class="hljs-keyword">import</span> RewardParser
+<span class="hljs-keyword">from</span> transitions <span class="hljs-keyword">import</span> TransitionParser
+<span class="hljs-keyword">from</span> policy <span class="hljs-keyword">import</span> PolicyParser
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MarkovAgent</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, observations, dimensions)</span>:</span>
+    <span class="hljs-comment"># create reward, transition, and policy parsers</span>
+    self.reward_parser = RewardParser(observations, dimensions)
+    self.transition_parser = TransitionParser(observations, dimensions)
+    self.policy_parser = PolicyParser(dimensions)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">learn</span><span class="hljs-params">(self)</span>:</span>
+    R = self.reward_parser.rewards()
+    P = self.transition_parser.transition_probabilities()
+
+    self.policy = self.policy_parser.policy(P, R)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h1 id="sample-application">Sample Application</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="climbing">Climbing</h3>
+<ul>
+<li>5 states: bottom, low, middle, high, top.</li>
+<li>No leaving bottom and top.</li>
+<li>We get a reward at the top, nothing at the bottom.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="data-observations">Data - observations</h3>
+<pre><code class="lang-python">
+observations = [
+  { <span class="hljs-string">'state_transitions'</span>: [
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'low'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'mid'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'mid'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'high'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'high'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'sink'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'mid'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'mid'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'sink'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'low'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'low'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'sink'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'bottom'</span> }
+    ],
+    <span class="hljs-string">'reward'</span>: <span class="hljs-number">0</span>
+  },
+  { <span class="hljs-string">'state_transitions'</span>: [
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'low'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'mid'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'mid'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'high'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'high'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'top'</span> },
+    ],
+    <span class="hljs-string">'reward'</span>: <span class="hljs-number">0</span>
+  }
+]</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="data-trap-states">Data - trap states</h3>
+<pre><code class="lang-python">
+trap_states = [
+  {
+    <span class="hljs-string">'state_transitions'</span>: [
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'bottom'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'sink'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'bottom'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'bottom'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'bottom'</span> }
+    ],
+    <span class="hljs-string">'reward'</span>: <span class="hljs-number">0</span>
+  },
+  {
+    <span class="hljs-string">'state_transitions'</span>: [
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'top'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'sink'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'top'</span> },
+      { <span class="hljs-string">'state'</span>: <span class="hljs-string">'top'</span>, <span class="hljs-string">'action'</span>: <span class="hljs-string">'climb'</span>, <span class="hljs-string">'state_'</span>: <span class="hljs-string">'top'</span> },
+    ],
+    <span class="hljs-string">'reward'</span>: <span class="hljs-number">1</span>
+  },
+]</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
+    <section class="slide-content"><h3 id="training">Training</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> learn <span class="hljs-keyword">import</span> MarkovAgent
+mark = MarkovAgent(observations + trap_states)
+mark.learn()
+
+print(mark.policy)
+<span class="hljs-comment"># {'high': 'climb', 'top': 'sink', 'bottom': 'sink', 'low': 'climb', 'mid': 'climb'}</span>
+<span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> policy in top and bottom states is chosen randomly (doesn't affect state)</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-29">
+    <section class="slide-content"><h3 id="search">Search</h3>
+<ul>
+<li><p>Given an array of sorted numbers, find a target value as quickly as possible.</p>
+</li>
+<li><p>Our random numbers will be distributed exponentially. Can we use this information to do better than binary search?</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="approach">Approach</h3>
+<ul>
+<li>Create many example searches (random, linear, and binary).</li>
+<li>Reward for each search should be -1 * #steps to find target.</li>
+<li>Append these with trap states with positive rewards.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-31">
+    <section class="slide-content"><h3 id="-feature-selection-">&quot;Feature Selection&quot;</h3>
+<p>Our model can only learn what we show it (i.e. what&#39;s encoded in state). Our state will include:</p>
+<ul>
+<li>current location</li>
+<li>whether current location is above or below the target</li>
+<li>known index range</li>
+<li>whether our target is above or below the distribution mean</li>
+</ul>
+<p>Example state: &quot;12:up:0:50:True&quot;</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="training">Training</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> learn <span class="hljs-keyword">import</span> MarkovAgent
+<span class="hljs-keyword">from</span> search <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+simulator = SearchSimulation()
+observations = simulator.observations(<span class="hljs-number">50000</span>, <span class="hljs-number">20</span>)
+mark = MarkovAgent(observations)
+mark.learn()
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AISearch</span><span class="hljs-params">(Search)</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_location</span><span class="hljs-params">(self)</span>:</span>
+    self.location = mark.policy[self.state()]</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="comparison">Comparison</h3>
+<pre><code class="lang-python">binary_results = []
+linear_results = []
+random_results = []
+ai_results = []
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10000</span>):
+  <span class="hljs-comment"># create array and target value</span>
+  array = simulator._random_sorted_array(<span class="hljs-number">15</span>)
+  target = random.choice(array)
+
+  <span class="hljs-comment"># generate observation for search of each type</span>
+  binary = simulator.observation(BinarySearch(array, target))
+  linear = simulator.observation(LinearSearch(array, target))
+  rando = simulator.observation(RandomSearch(array, target))
+  ai = simulator.observation(AISearch(array, target))
+
+  <span class="hljs-comment"># append result</span>
+  binary_results.append(len(binary[<span class="hljs-string">'state_transitions'</span>]))
+  linear_results.append(len(linear[<span class="hljs-string">'state_transitions'</span>]))
+  random_results.append(len(rando[<span class="hljs-string">'state_transitions'</span>]))
+  ai_results.append(len(ai[<span class="hljs-string">'state_transitions'</span>]))
+
+<span class="hljs-comment"># display average results</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Average binary search length: {0}"</span>.format(np.mean(binary_results)) <span class="hljs-comment"># 3.6469</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Average linear search length: {0}"</span>.format(np.mean(linear_results)) <span class="hljs-comment"># 5.5242</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Average random search length: {0}"</span>.format(np.mean(random_results)) <span class="hljs-comment"># 14.2132</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Average AI search length: {0}"</span>.format(np.mean(ai_results)) <span class="hljs-comment"># 3.1095</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="results">Results</h3>
+<p><img src="./search.png"></p>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-35">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Nathan Epstein</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@epstein_n">@epstein_n</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://nepste.in">http://nepste.in</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
